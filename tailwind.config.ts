@@ -23,15 +23,19 @@ export const darkThemeColors: ThemeColors =
 {
   ...commonColors,
   bg: "#0f172a",
-  txt1: "white",
-  txt2: "#38bdf8",
+  txt1: "#f6f7f7",
+  txt2: "#8a898d",
   txt3: "#6F6E84",
   txt4: "#8c8ba3",
   sf1: "#15141eef",
   sf2: "#0d0f1fd4",
   sf3: "#0d0f1f2f",
   sf4: "#0d0f1f0f",
-  sf5: "##26202f",
+  sf5: "#26202f",
+  danger: {
+    DEFAULT: "#BEF264",
+    foreground: "#000000",
+  },
 }
 
 const config: Config = {
@@ -43,12 +47,20 @@ const config: Config = {
     "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js",
   ],
   darkMode: "class",
+  theme: {
+    extend: {
+      fontFamily: {
+        'vazir': ['vazir',],
+        'boo': ['boo',],
+      }
+    }
+  },
   plugins: [nextui({
     prefix: "nextui", // prefix for themes variables
     addCommonColors: false, // override common colors (e.g. "blue", "green", "pink").
-    defaultTheme: "light", // default theme from the themes object
-    defaultExtendTheme: "light", // default theme to extend on custom themes
-    layout: {}, // common layout tokens (applied to all themes)
+    defaultTheme: "dark", // default theme from the themes object
+    defaultExtendTheme: "dark", // default theme to extend on custom themes
+    layout: {}, // common layout tokens (applied to all themes)a
     themes: {
       light: {
         layout: {}, // light theme layout tokens
@@ -60,6 +72,7 @@ const config: Config = {
       },
       // ... custom themes
     },
+
   }),],
 }
 export default config

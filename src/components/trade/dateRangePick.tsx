@@ -19,15 +19,14 @@ export default function DateRangePick() {
   }
 
   return (
-    <div className="h-unit-12 w-unit-42 flex flex-col justify-center items-start gap-unit-1">
+    <div className="flex flex-col justify-center items-start text-txt1 text-sm gap-unit-1">
       <div>
         Expiration Date
       </div>
       <Datepicker
         classNames={{ 
-          container: () => "bg-sf3 text-txt4",
-          input: () => "bg-sf3 text-txt4 ",
-          toggleButton: () => "bg-sf3 text-txt4 ",
+          container: () => "h-unit-12 w-unit-48 bg-sf3 text-txt4",
+          input: () => "p-unit-3 bg-sf3 text-txt4 rounded-xl outline-none",
           footer: () => "bg-sf3 text-txt4 ", 
         }}
         useRange={false}

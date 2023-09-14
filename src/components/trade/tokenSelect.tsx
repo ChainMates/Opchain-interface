@@ -2,16 +2,14 @@
 import React from "react";
 import { Select, SelectItem, Avatar, Chip } from "@nextui-org/react";
 import { getTokens } from "@/artifacts/tokens";
+import { Option } from "@/libs/types";
+import { useGlobalStates } from "@/app/providers";
 
-// const importedTokens : {[index: number]: Token[]} = {
-//   137: require("@uniswap/default-token-list/tokens/arbitrum.json") as Token[],
-//   137: require("@uniswap/default-token-list/tokens/polygon.json") as Token[],
-//   8001: require("@uniswap/default-token-list/tokens/mumbai.json") as Token[],
-// }
+
 export default function TokenSelect({ label }: { label: string }) {
 
-  const chainId = 137
-  const tokens = getTokens(chainId)
+  const { optionList, chainId }: { optionList?: Option[], chainId?: number } = useGlobalStates()
+  const tokens = getTokens(chainId || 137)
 
   return (
     <Select
@@ -22,12 +20,13 @@ export default function TokenSelect({ label }: { label: string }) {
       selectionMode="multiple"
       placeholder="Select a token"
       labelPlacement="outside"
+      size="lg"
       classNames={{
         base: "min-h-unit-12 w-unit-60 max-w-xs",
         trigger: "py-2 bg-sf3",
-        label: "text-txt",
-        listbox: "bg-sf4",
-        listboxWrapper: "bg-sf4 rounded-lg",
+        label: "text-txt1",
+        listbox: "bg-sf1",
+        listboxWrapper: "bg-sf1 rounded-lg",
       }}
       scrollShadowProps={{
         isEnabled: false

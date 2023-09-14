@@ -8,10 +8,10 @@ export type Token = {
 }
 
 export type Option = {
-    baseToken: string,
-    quoteToken: string,
+    baseTokenSym: string,
+    quoteTokenSym: string,
     strikePrice: number,
-    expirationDate: string,
+    expDate: string,
 }
 
 export type crossChainToken = {
@@ -25,4 +25,9 @@ export type crossChainToken = {
     }[]
 }
 
-export type ThemeColors = { [index: string]: string }
+export type ThemeColors = {
+    [index: string]: string | {
+        DEFAULT: string,
+        foreground: string,
+    },
+}

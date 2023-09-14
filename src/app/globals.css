@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@font-face {
+    font-family: vazir;
+    src: url('../fonts/Vazir.ttf') format('truetype');
+    font-weight: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'boo';
+    src: url('../fonts/BlackOpsOne-Regular.ttf');
+    font-weight: normal;
+    font-display: swap;
+}
