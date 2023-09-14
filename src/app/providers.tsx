@@ -1,7 +1,8 @@
 'use client'
 import { createContext, useContext, useEffect, useState } from 'react'
 import { NextUIProvider } from '@nextui-org/react'
-import { Option, Token } from '@/libs/types'
+import { Option } from '@/libs/types'
+
 
 export const Context = createContext({})
 export const useGlobalStates = () => useContext(Context)
@@ -10,8 +11,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   const [darkMode, setDarkMode] = useState<boolean>(true)
 
-  const [isWalletConnected, setWalletConnected] = useState<boolean>(false)
+  const [isConnected, setConnected] = useState<boolean>(false)
   const [chainId, setChainId] = useState<number>(137)
+  const [account, setAccount] = useState<string>("0x0")
 
   const [baseToken, setBaseToken] = useState<string | null>()
   const [quoteToken, setQuoteToken] = useState<string | null>()
@@ -30,18 +32,41 @@ export function Providers({ children }: { children: React.ReactNode }) {
     },
   ])
 
+  useEffect(() => {
+    if (window?.ethereum?.isMetaMask && window?.ethereum?.isConnected()) {
+
+      window.ethereum.request({ method: 'eth_requestAccounts' }).then(
+        (accounts: string[]) => {
+          if (accounts.length !== 0) {
+            setAccount(accounts[0])
+            setConnected(true)
+          }
+        }
+      )
+
+      window.ethereum.request({ method: 'eth_chainId' }).then(
+        (newChainId: number) => { setChainId((parseInt(newChainId.toString()))) }
+      )
+
+    }
+
+  }, [window.ethereum])
+
+  window.ethereum.on('chainChanged', (chainId: string) => { setChainId(parseInt(chainId)) });
+  window.ethereum.on('accountsChanged', (accounts: string[]) => { setAccount(accounts.length !== 0 ? accounts[0] : "0x0") });
 
   return (
     <div className={darkMode ? "dark" : "light"}>
       <NextUIProvider>
         <Context.Provider value={{
           setDarkMode,
-          isWalletConnected, setWalletConnected,
+          isConnected, setConnected,
+          account,
           chainId, setChainId,
           baseToken, setBaseToken,
           quoteToken, setQuoteToken,
           optionList, setOptionList,
-        }}>
+        } as { account: string }}>
           {children}
         </ Context.Provider >
       </NextUIProvider>

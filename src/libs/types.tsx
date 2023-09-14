@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react"
+
 export type Token = {
     name: string,
     address: string,
@@ -30,4 +32,19 @@ export type ThemeColors = {
         DEFAULT: string,
         foreground: string,
     },
+}
+
+export type GlobalStates = {
+    setDarkMode?: Dispatch<SetStateAction<boolean>>,
+
+    isConnected?: boolean,
+    chainId?: number,
+    account?: string,
+
+    baseToken?: string | null,
+    setBaseToken?: Dispatch<SetStateAction<string>>,
+    quoteToken?: string | null,
+    setQuoteToken?: Dispatch<SetStateAction<string>>,
+    optionList?: Option[],
+    setOptionList?: Dispatch<SetStateAction<Option[]>>,
 }
