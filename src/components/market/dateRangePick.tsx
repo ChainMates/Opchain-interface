@@ -25,12 +25,13 @@ export default function DateRangePick() {
       </div>
       <Datepicker
         classNames={{ 
-          container: () => "h-unit-12 w-unit-48 bg-sf3 text-txt4",
-          input: () => "p-unit-3 bg-sf3 text-txt4 rounded-xl outline-none",
-          footer: () => "bg-sf3 text-txt4 ", 
+          container: () => "h-unit-12 bg-sf3 text-txt4",
+          input: () => "w-unit-56 p-unit-3 bg-sf3 text-txt4 rounded-xl outline-none",
+          footer: () => "bg-sf3 text-txt4 ",
         }}
+        placeholder="Select a range"
         useRange={false}
-        primaryColor={"rose"}
+        primaryColor={"blue"}
         value={value}
         onChange={handleValueChange}
         showShortcuts={true}

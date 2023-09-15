@@ -2,13 +2,13 @@
 import React from "react";
 import { Select, SelectItem, Avatar, Chip } from "@nextui-org/react";
 import { getTokens } from "@/artifacts/tokens";
-import { Option } from "@/libs/types";
+import { GlobalStates, Option } from "@/libs/types";
 import { useGlobalStates } from "@/app/providers";
 
 
 export default function TokenSelect({ label }: { label: string }) {
 
-  const { optionList, chainId }: { optionList?: Option[], chainId?: number } = useGlobalStates()
+  const { chainId }: GlobalStates = useGlobalStates()
   const tokens = getTokens(chainId || 137)
 
   return (
@@ -22,7 +22,7 @@ export default function TokenSelect({ label }: { label: string }) {
       labelPlacement="outside"
       size="lg"
       classNames={{
-        base: "min-h-unit-12 w-unit-60 max-w-xs",
+        base: "min-h-unit-12 w-unit-48 max-w-xs",
         trigger: "py-2 bg-sf3",
         label: "text-txt1",
         listbox: "bg-sf1",

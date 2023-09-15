@@ -6,8 +6,7 @@ export async function ConnectMmWallet() {
 
     let provider;
     if (window.ethereum == null) {
-
-        console.log("MetaMask not installed; using read-only defaults")
+        alert("please install metamask, reopen this window when metamask was installed") // should be replaced with proper alert
         provider = ethers.getDefaultProvider()
 
     } else {

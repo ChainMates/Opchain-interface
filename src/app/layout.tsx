@@ -23,7 +23,7 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
                 <NavBar />
               </div>
               <div className="h-full w-[80%] bg-sf2 flex flex-col justify-center items-center rounded-r-xl">
-                <div className='w-full py-unit-8 px-unit-4 mb-unit-24 flex justify-end items-start gap-unit-1'>
+                <div className='w-full py-unit-8 px-unit-4 flex justify-end items-start gap-unit-1'>
                   <UserMenu />
                 </div>
                 {children}

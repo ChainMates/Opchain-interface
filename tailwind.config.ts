@@ -6,8 +6,8 @@ const commonColors: ThemeColors =
 {
   networkPolygon: '#A457FF',
   networkArbitrum: '#28A0F0',
-  content1: 'transparent',
-  default: '#15141e5f',
+  // content1: 'transparent',
+  // default: '#15141e5f',
 }
 
 export const lightThemeColors: ThemeColors =
@@ -32,10 +32,10 @@ export const darkThemeColors: ThemeColors =
   sf3: "#0d0f1f2f",
   sf4: "#0d0f1f0f",
   sf5: "#26202f",
-  danger: {
-    DEFAULT: "#BEF264",
-    foreground: "#000000",
-  },
+  // primary: {
+  //   DEFAULT: "#BEF264",
+  //   foreground: "#000000",
+  // },
 }
 
 const config: Config = {

@@ -50,10 +50,13 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
     }
 
-  }, [window.ethereum])
+    window.ethereum?.on('chainChanged', (chainId: string) => { setChainId(parseInt(chainId)) });
+    window.ethereum?.on('accountsChanged', (accounts: string[]) => {
+      setAccount(accounts.length !== 0 ? accounts[0] : "0x0")
+      setConnected(accounts.length !== 0 ? true : false)
+    });
+  }, [])
 
-  window.ethereum.on('chainChanged', (chainId: string) => { setChainId(parseInt(chainId)) });
-  window.ethereum.on('accountsChanged', (accounts: string[]) => { setAccount(accounts.length !== 0 ? accounts[0] : "0x0") });
 
   return (
     <div className={darkMode ? "dark" : "light"}>
