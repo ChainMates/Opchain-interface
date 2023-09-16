@@ -32,10 +32,19 @@ export const darkThemeColors: ThemeColors =
   sf3: "#0d0f1f2f",
   sf4: "#0d0f1f0f",
   sf5: "#26202f",
+  sf6: "#0d0f1f8f",
   // primary: {
   //   DEFAULT: "#BEF264",
   //   foreground: "#000000",
   // },
+  success: {
+    DEFAULT: "#3FB68B",
+    foreground: "#000000",
+  },
+  danger: {
+    DEFAULT: "#FF5353",
+    foreground: "#000000",
+  },
 }
 
 const config: Config = {

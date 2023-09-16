@@ -1,19 +1,21 @@
 "use client"
-import React from "react";
-import { Select, SelectItem, Avatar, Chip } from "@nextui-org/react";
+import React, { Dispatch, Key, SetStateAction } from "react";
+import { Select, SelectItem, Avatar, Chip, Selection } from "@nextui-org/react";
 import { getTokens } from "@/artifacts/tokens";
 import { GlobalStates, Option } from "@/libs/types";
 import { useGlobalStates } from "@/app/providers";
+import { isIn } from "@/libs/tools";
 
 
-export default function TokenSelect({ label }: { label: string }) {
+export default function TokenSelect({ label, tokens, setTokens }: { label: string, tokens: Set<Key>, setTokens: any }) {
 
   const { chainId }: GlobalStates = useGlobalStates()
-  const tokens = getTokens(chainId || 137)
+
+  const shownTokens = getTokens(chainId || 137)
 
   return (
     <Select
-      items={tokens}
+      items={shownTokens}
       label={label}
       variant="flat"
       isMultiline={true}
@@ -21,6 +23,10 @@ export default function TokenSelect({ label }: { label: string }) {
       placeholder="Select a token"
       labelPlacement="outside"
       size="lg"
+      onSelectionChange={(newTokens: Selection) => {
+        if (typeof newTokens !== "string" && setTokens)
+          setTokens(newTokens)
+      }}
       classNames={{
         base: "min-h-unit-12 w-unit-48 max-w-xs",
         trigger: "py-2 bg-sf3",
@@ -35,7 +41,7 @@ export default function TokenSelect({ label }: { label: string }) {
         return (
           <div className="flex flex-wrap gap-2">
             {items.map((item) => (
-              <Chip key={item.key}
+              <Chip key={item.data?.symbol}
                 variant="flat"
                 avatar={
                   <Avatar
@@ -51,7 +57,7 @@ export default function TokenSelect({ label }: { label: string }) {
       }}
     >
       {(token =>
-        <SelectItem key={token.address} textValue={token.name}>
+        <SelectItem key={token.symbol as string} textValue={token.name}>
           <div className="flex gap-2 items-center">
             <Avatar alt={token.name} className="flex-shrink-0" size="sm" src={token.logoURI} />
             <div className="flex flex-col">

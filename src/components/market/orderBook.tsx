@@ -1,7 +1,3 @@
-"use client"
-import TokenSelect from "@/components/market/tokenSelect";
-import DateRangePick from "@/components/market/dateRangePick";
-import PricePick from "@/components/market/pricePick";
 import { Button, Progress } from "@nextui-org/react";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
 import { Order } from "@/libs/types";
@@ -51,8 +47,6 @@ export default function OrderBook({ isAccending, color, gradiant }: { isAccendin
   // Map back to array
   let groupedArray: Order[] = []
   for (const [price, size] of Object.entries(groupedOrders)) {
-    console.log(price)
-    console.log(size)
     groupedArray.push({ price: Number(price), size: Number(size) })
   }
 
@@ -78,7 +72,7 @@ export default function OrderBook({ isAccending, color, gradiant }: { isAccendin
   }
 
   return (
-    <Table aria-label="Example static collection table" classNames={{ wrapper: "bg-sf3", table: "bg-sf5 rounded-xl", th: "bg-sf1" }} >
+    <Table aria-label="Example static collection table" classNames={{ wrapper: "bg-sf3", table: "bg-sf3 rounded-xl", th: "bg-sf5" }} >
       <TableHeader>
         <TableColumn>Size</TableColumn>
         <TableColumn>Price</TableColumn>

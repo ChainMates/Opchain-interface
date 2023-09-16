@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useContext, useEffect, useState } from 'react'
+import { Key, createContext, useContext, useEffect, useState } from 'react'
 import { NextUIProvider } from '@nextui-org/react'
 import { Option } from '@/libs/types'
 
@@ -15,8 +15,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const [chainId, setChainId] = useState<number>(137)
   const [account, setAccount] = useState<string>("0x0")
 
-  const [baseToken, setBaseToken] = useState<string | null>()
-  const [quoteToken, setQuoteToken] = useState<string | null>()
+  const [baseTokens, setBaseTokens] = useState<Set<Key>>(new Set([]))
+  const [quoteTokens, setQuoteTokens] = useState<Set<Key>>(new Set([]))
+  const [minPrice, setMinPrice] = useState<number>()
+  const [maxPrice, setMaxPrice] = useState<number>()
   const [optionList, setOptionList] = useState<Option[]>([
     {
       baseTokenSym: "WETH",
@@ -66,10 +68,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
           isConnected, setConnected,
           account,
           chainId, setChainId,
-          baseToken, setBaseToken,
-          quoteToken, setQuoteToken,
+          baseTokens, setBaseTokens,
+          quoteTokens, setQuoteTokens,
+          minPrice, setMinPrice,
+          maxPrice, setMaxPrice,
           optionList, setOptionList,
-        } as { account: string }}>
+        }}>
           {children}
         </ Context.Provider >
       </NextUIProvider>

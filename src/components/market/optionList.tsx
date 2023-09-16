@@ -1,5 +1,5 @@
 "use client"
-import { Option } from "@/libs/types";
+import { GlobalStates, Option } from "@/libs/types";
 import { useGlobalStates } from "@/app/providers";
 import React from "react";
 import { useDisclosure, Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Button, Chip, User, Pagination, SortDescriptor, Modal, ModalContent, ModalBody, ModalHeader, ModalFooter, Spacer, Tabs, Tab, Input, } from "@nextui-org/react";
@@ -9,7 +9,9 @@ import OrderBook from "./orderBook";
 
 export default function OptionList() {
 
-  const { optionList, chainId }: { optionList?: Option[], chainId?: number } = useGlobalStates()
+  const { optionList, chainId, baseTokens, quoteTokens, minPrice, maxPrice }: GlobalStates = useGlobalStates()
+  const baseTokensArray = Array.from(baseTokens ? baseTokens : new Set([]))
+  const quoteTokensArray = Array.from(quoteTokens ? quoteTokens : new Set([]))
   const tokens = getTokens(chainId || 137)
   const [rowsPerPage, setRowsPerPage] = React.useState(7);
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
@@ -22,7 +24,31 @@ export default function OptionList() {
 
   const [page, setPage] = React.useState(1);
 
-  const filteredItems = optionList ? [...optionList] : []
+  let filteredItems = optionList ? [...optionList] : []
+
+  if (baseTokensArray.length > 0) {
+    filteredItems = filteredItems.filter(
+      option => baseTokensArray.includes(option.baseTokenSym)
+    )
+  }
+
+  if (quoteTokensArray.length > 0) {
+    filteredItems = filteredItems.filter(
+      option => quoteTokensArray.includes(option.quoteTokenSym)
+    )
+  }
+
+  if (minPrice && minPrice !== 0) {
+    filteredItems = filteredItems.filter(
+      option => option.strikePrice >= minPrice
+    )
+  }
+
+  if (maxPrice && maxPrice !== 0) {
+    filteredItems = filteredItems.filter(
+      option => option.strikePrice >= maxPrice
+    )
+  }
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -113,7 +139,6 @@ export default function OptionList() {
       </div>
     );
   }, [items.length, page, pages]);
-
   return (
     <>
       <Table
@@ -161,7 +186,7 @@ export default function OptionList() {
         backdrop="blur"
         isOpen={isOpen}
         onClose={onClose}
-        classNames={{base:"bg-sf1"}}
+        classNames={{ base: "bg-sf6" }}
       >
         <ModalContent>
           {(onClose) => (
@@ -169,8 +194,8 @@ export default function OptionList() {
               <ModalHeader className="flex flex-col gap-1">Option's order book</ModalHeader>
               <ModalBody>
                 <div className="flex justify-items-center">
-                  <OrderBook isAccending={true} color="from-red-600" gradiant="bg-gradient-to-l" />
-                  <OrderBook isAccending={false} color="from-green-600" gradiant="bg-gradient-to-r" />
+                  <OrderBook isAccending={true} color="from-danger" gradiant="bg-gradient-to-l" />
+                  <OrderBook isAccending={false} color="from-success" gradiant="bg-gradient-to-r" />
                 </div>
                 <Tabs
                   color={selectedMode === "buy" ? "success" : "danger"}
@@ -181,8 +206,8 @@ export default function OptionList() {
                 >
                   <Tab key="buy" title="Buy">
                     <form className="flex flex-col gap-4">
-                      <Input classNames={{inputWrapper:"bg-sf5"}} isRequired label="Size" type="number" />
-                      <Input classNames={{inputWrapper:"bg-sf5"}} isRequired label="price" type="number" />
+                      <Input classNames={{ inputWrapper: "bg-sf5" }} isRequired label="Size" type="number" />
+                      <Input classNames={{ inputWrapper: "bg-sf5" }} isRequired label="price" type="number" />
                       <div className="flex gap-2 justify-end">
                         <Button fullWidth color="success">
                           buy
@@ -192,8 +217,8 @@ export default function OptionList() {
                   </Tab>
                   <Tab key="sell" title="Sell">
                     <form className="flex flex-col gap-4">
-                      <Input classNames={{inputWrapper:"bg-sf5"}} isRequired label="Size" type="number" />
-                      <Input classNames={{inputWrapper:"bg-sf5"}} isRequired label="price" type="number" />
+                      <Input classNames={{ inputWrapper: "bg-sf5" }} isRequired label="Size" type="number" />
+                      <Input classNames={{ inputWrapper: "bg-sf5" }} isRequired label="price" type="number" />
                       <div className="flex gap-2 justify-end">
                         <Button fullWidth color="danger">
                           sell

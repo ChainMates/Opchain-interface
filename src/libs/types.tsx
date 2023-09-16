@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, SetStateAction, Key } from "react"
 
 export type Token = {
     name: string,
@@ -45,10 +45,16 @@ export type GlobalStates = {
     chainId?: number,
     account?: string,
 
-    baseToken?: string | null,
-    setBaseToken?: Dispatch<SetStateAction<string>>,
-    quoteToken?: string | null,
-    setQuoteToken?: Dispatch<SetStateAction<string>>,
+    baseTokens?: Set<Key>,
+    setBaseTokens?: Dispatch<SetStateAction<Set<Key>>>,
+    quoteTokens?: Set<Key>,
+    setQuoteTokens?: Dispatch<SetStateAction<Set<Key>>>,
+    minPrice?: number,
+    setMinPrice?: Dispatch<SetStateAction<number>>,
+    maxPrice?: number,
+    setMaxPrice?: Dispatch<SetStateAction<number>>,
+    priceRange?: { min: number, max: number },
+    setPriceRange?: Dispatch<SetStateAction<{ min: number, max: number }>>,
     optionList?: Option[],
     setOptionList?: Dispatch<SetStateAction<Option[]>>,
 }
