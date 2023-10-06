@@ -4,7 +4,7 @@ import { Button } from "@nextui-org/react";
 
 import Svg from "./svg";
 import { useGlobalStates } from "@/app/providers";
-import { ConnectMmWallet } from "@/libs/metaMask";
+import { ConnectWallet } from "@/libs/metaMask";
 import { GlobalStates } from "@/libs/types";
 
 export default function UserMenu() {
@@ -19,20 +19,22 @@ export default function UserMenu() {
       {
 
         isConnected ?
-            <div className="p-unit-3 bg-sf2 rounded-xl flex justify-items-center gap-unit-2">
-              <Svg id={"metaMask"} size="h-unit-6" className="fill-txt2" />
-              <>{`${account?.slice(0, 6)}...${account?.slice(-4)}`}</>
+            <div className="p-unit-3 bg-sf5 text-txt1 rounded-xl flex justify-items-center gap-unit-2">
+              <Svg id={"metaMask"} size="h-unit-6" />
+              {`${account?.slice(0, 6)}...${account?.slice(-4)}`}
             </div>
 
 
 
           :
-          <Button isLoading={isConnecting} onClick={async () => {
+          <Button isLoading={isConnecting}
+          className="p-5"
+          onClick={async () => {
             setConnecting(true)
-            await ConnectMmWallet()
+            await ConnectWallet()
             setConnecting(false)
-          }} color="success">
-            <p>Connect Wallet</p>
+          }} color="secondary">
+            <p className="text-lg text-txt4">Connect Wallet</p>
           </Button>}
       {/* <Svg id={"arrow"} size="h-unit-8" className="fill-txt2" /> */}
       {/* classNames={{

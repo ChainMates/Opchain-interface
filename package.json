@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 7000",
     "lint": "next lint"
   },
   "dependencies": {
@@ -14,10 +14,14 @@
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.15",
+    "dayjs": "^1.11.10",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
     "ethers": "^6.7.1",
     "framer-motion": "^10.16.4",
+    "jose": "^4.15.2",
+    "mongodb": "^4.13.0",
+    "nanoid": "^5.0.1",
     "next": "13.4.19",
     "postcss": "8.4.29",
     "react": "18.2.0",

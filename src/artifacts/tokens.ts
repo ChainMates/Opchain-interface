@@ -48,6 +48,10 @@ export const tokenList: crossChainToken[] =
           chainId: 42161,
           address: '0x2f2a2543B76A4166549F7aaB2e75Bef0aefC5B0f',
         },
+        {
+          chainId: 11155111,
+          address: '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599',
+        },
       ]
     },
     {
@@ -67,6 +71,10 @@ export const tokenList: crossChainToken[] =
         {
           chainId: 42161,
           address: '0x82af49447d8a07e3bd95bd0d56f35241523fbab1',
+        },
+        {
+          chainId: 11155111,
+          address: '0xf531b8f309be94191af87605cfbf600d71c2cfe0',
         },
       ]
     },

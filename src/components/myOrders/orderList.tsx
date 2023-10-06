@@ -10,7 +10,7 @@ import {
 import { getTokens } from "@/artifacts/tokens";
 import { defaultChainId } from "@/artifacts/chains";
 
-export default function optionList({ options, btnTitle, btnModalId }:
+export default function OrderList({ options, btnTitle, btnModalId }:
   {
     options: Option[], btnTitle: string, btnModalId: string,
   }) {
@@ -126,7 +126,7 @@ export default function optionList({ options, btnTitle, btnModalId }:
   const bottomContent = React.useMemo(() => {
     return (
       <div className="w-full relative py-2 px-2 flex">
-        <Pagination isCompact showControls showShadow color="primary" page={page} total={pages} onChange={setPage} classNames={{ wrapper: "bg-sf1/80" }} />
+        <Pagination isCompact showControls showShadow color="primary" page={page} total={pages} onChange={setPage} classNames={{wrapper:"bg-sf1/80"}} />
       </div>
     );
   }, [items.length, page, pages]);

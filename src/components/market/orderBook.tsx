@@ -1,91 +1,49 @@
-import { Button, Progress } from "@nextui-org/react";
-import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from "@nextui-org/react";
-import { Order } from "@/libs/types";
+import { Tab, Tabs } from "@nextui-org/react";
+import OrderBookTab from "./orderBookTab";
+import { useState } from "react";
+import OrderTable from "./orderBookTable";
+import { useGlobalStates } from "@/app/providers";
+import { GlobalStates } from "@/libs/types";
+import UserOrderTable from "./userOrderTable";
 
-export default function OrderBook({ isAccending, color, gradiant }: { isAccending: boolean, color: string, gradiant: string }) {
+export default function OrderBook() {
 
-  const orders = [
-    {
-      size: 200,
-      price: 2,
-    },
-    {
-      size: 15,
-      price: 4,
-    },
-    {
-      size: 400,
-      price: 1,
-    },
-    {
-      size: 76,
-      price: 5,
-    },
-    {
-      size: 34,
-      price: 3,
-    },
-    {
-      size: 524,
-      price: 8,
-    },
-    {
-      size: 20,
-      price: 9,
-    },
-  ]
+  const [selectedMode, setSelectedMode] = useState("buy");
 
-  // Group by price
-  const groupedOrders: { [key: number]: number } = orders.reduce((grouped: { [key: number]: number }, order) => {
-    if (!grouped[order.price]) {
-      grouped[order.price] = 0;
-    }
-    grouped[order.price] += order.size
-    return grouped;
-  }, {});
-
-  // Map back to array
-  let groupedArray: Order[] = []
-  for (const [price, size] of Object.entries(groupedOrders)) {
-    groupedArray.push({ price: Number(price), size: Number(size) })
-  }
-
-  // Sort by price
-  groupedArray.sort((a, b) => isAccending ? a.price - b.price : b.price - a.price)
-
-
-  // Keep first 6 orders
-  groupedArray.splice(6);
-
-
-  // Get max size order
-  const orderWithMaxSize = groupedArray.reduce((prev, current) => {
-    return (prev.size > current.size) ? prev : current;
-  });
-  const maxSize = orderWithMaxSize.size
-
-  function getRatioPercent(size: number) {
-    let ratio = size / maxSize * 100;
-    ratio = Math.round(ratio / 5) * 5;
-
-    return ratio + '%';
-  }
+  const { option, userOrders }: GlobalStates = useGlobalStates()
 
   return (
-    <Table aria-label="Example static collection table" classNames={{ wrapper: "bg-sf3", table: "bg-sf3 rounded-xl", th: "bg-sf5" }} >
-      <TableHeader>
-        <TableColumn>Size</TableColumn>
-        <TableColumn>Price</TableColumn>
-      </TableHeader>
-      <TableBody >
-        {groupedArray.map((order, key) =>
-          <TableRow className={`${gradiant} ${color} to-${getRatioPercent(order.size)} to-transparent`} key={key}>
-            <TableCell>{order.size}</TableCell>
-            <TableCell>{order.price}</TableCell>
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+    <div className="flex flex-col justify-items-center gap-unit-2">
+
+      <div className="flex justify-items-center gap-unit-2">
+
+        <OrderTable orders={option?.orders?.sell || []} isAccending={true} color="from-danger" gradiant="bg-gradient-to-l" />
+        <OrderTable orders={option?.orders?.buy || []} isAccending={false} color="from-success" gradiant="bg-gradient-to-r" />
+        <div className="ml-unit-4 flex flex-col justify-items-center">
+          <Tabs
+            color={selectedMode === "buy" ? "success" : "danger"}
+            fullWidth
+            size="lg"
+            selectedKey={selectedMode}
+            onSelectionChange={() => setSelectedMode(prev => prev === "buy" ? "sell" : "buy")}
+            classNames={{ base: "w-unit-56", tabList: "bg-sf1" }}
+
+          >
+            <Tab key="buy" title="Buy">
+              <OrderBookTab title="Buy" color="success" />
+            </Tab>
+            <Tab key="sell" title="Sell">
+              <OrderBookTab title="Sell" color="danger" />
+            </Tab>
+          </Tabs>
+        </div>
+
+      </div>
+<p>Your Orders</p>
+      <div className="flex flex-col justify-items-center gap-unit-2">
+        <UserOrderTable orders={userOrders?.filter(({ optionId }) => optionId === option?.id) || []} />
+      </div>
+
+    </div>
   )
 }
-// "hidden to-5% to-10% to-15% to-20% to-25% to-30% to-35% to-40% to-45% to-50% to-55% to-60% to-65% to-70% to-75% to-80% to-85% to-90% to-95% to-100%" 

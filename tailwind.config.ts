@@ -6,37 +6,43 @@ const commonColors: ThemeColors =
 {
   networkPolygon: '#A457FF',
   networkArbitrum: '#28A0F0',
-  // content1: 'transparent',
-  // default: '#15141e5f',
+  content1: '#3D405B',
+  default: '#00000080',
+  
 }
 
 export const lightThemeColors: ThemeColors =
 {
   ...commonColors,
-  bg: "white",
-  txt1: "black",
-  txt2: "black",
+
+
 }
 
 
 export const darkThemeColors: ThemeColors =
 {
   ...commonColors,
-  bg: "#0f172a",
-  txt1: "#f6f7f7",
-  txt2: "#8a898d",
-  txt3: "#6F6E84",
-  txt4: "#8c8ba3",
-  sf1: "#15141eef",
-  sf2: "#0d0f1fd4",
-  sf3: "#0d0f1f2f",
-  sf4: "#0d0f1f0f",
-  sf5: "#26202f",
-  sf6: "#0d0f1f8f",
-  // primary: {
-  //   DEFAULT: "#BEF264",
-  //   foreground: "#000000",
-  // },
+
+  txt1: "#3D405B",
+  txt2: "#6c757d",
+  txt3: "#ADB5BD",
+  txt4: "#ede0d4",
+
+  sf1: "#3D405B",
+  sf2: "#F4F1DE",
+  sf3: "#F2CC8F",
+  sf4: "#F9E5C5",
+  sf5: "#DEDBCE",
+  sf6: "#C7C5BE",
+
+  primary: {
+    DEFAULT: "#F2CC8F",
+    foreground: "#000000",
+  },
+  secondary: {
+    DEFAULT: "#3D405B",
+    foreground: "#000000",
+  },
   success: {
     DEFAULT: "#3FB68B",
     foreground: "#000000",
@@ -45,6 +51,7 @@ export const darkThemeColors: ThemeColors =
     DEFAULT: "#FF5353",
     foreground: "#000000",
   },
+
 }
 
 const config: Config = {
