@@ -10,8 +10,8 @@ export default function TakerOptionDetails() {
   return (
     <div className="w-full flex flex-col justify-items-center gap-unit-6">
       <div className="flex justify-items-center gap-unit-2">
-        <p className="text-tx2">Amount:</p>
-        <p className="text-tx1">{option?.amount}</p>
+        <p className="text-tx2">Base Token:</p>
+        <p className="text-tx1">{option?.baseTokenAddress}</p>
       </div >
       <div className="self-center flex flex-col justify-items-center gap-unit-6">
         <CircularProgress

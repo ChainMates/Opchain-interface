@@ -26,7 +26,6 @@ export async function GET() {
             const token = tokens.find((token) => token.chainId === chainId)
             const decimals = token?.decimals || 18
             
-            console.log(await contract.broker())
 
             contract.on('OptionCreated', (
                 baseToken: string,
